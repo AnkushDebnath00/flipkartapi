@@ -12,7 +12,9 @@ const app = express();
 dotenv.config();
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
-Connection(username, password);
+const URL = `mongodb+srv://${username}:${password}@cluster0.whywxej.mongodb.net/?retryWrites=true`;
+
+Connection(URL);
 
 defaultData();
 
@@ -21,7 +23,7 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", router);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Running on PORT ${PORT}`);
 });
